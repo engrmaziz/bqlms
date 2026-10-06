@@ -8,6 +8,7 @@ export const env = createEnv({
       .default("development"),
     PORT: z.coerce.number().default(3000),
     DATABASE_URL: z.string().url(),
+    DATABASE_URL_SESSION: z.string().url(),
     BUILD_STANDALONE: z.enum(["0", "1"]).optional(),
     LOG_LEVEL: z
       .enum(["fatal", "error", "warn", "info", "debug", "trace"])
@@ -20,6 +21,7 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL_SESSION: process.env.DATABASE_URL_SESSION,
     BUILD_STANDALONE: process.env.BUILD_STANDALONE,
     LOG_LEVEL: process.env.LOG_LEVEL,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

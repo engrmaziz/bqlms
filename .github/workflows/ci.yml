@@ -47,12 +47,23 @@ jobs:
       - name: Setup environment
         run: cp .env.example .env
 
+      - name: Bootstrap and migrate database
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lms
+          DATABASE_URL_SESSION: postgresql://postgres:postgres@localhost:5432/lms
+        run: |
+          psql "postgresql://postgres:postgres@localhost:5432/lms" -f scripts/db-bootstrap.sql
+          pnpm db:migrate
+          pnpm db:seed
+
       - name: Run quality gates (verify)
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lms
+          DATABASE_URL_SESSION: postgresql://postgres:postgres@localhost:5432/lms
         run: pnpm verify
 
       - name: Build application
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/lms
+          DATABASE_URL_SESSION: postgresql://postgres:postgres@localhost:5432/lms
         run: pnpm build

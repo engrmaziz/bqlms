@@ -1,0 +1,1 @@
+ALTER TABLE "lms"."settings" ALTER COLUMN "flags" SET DEFAULT '{"aiAssistance":false,"emailNotifications":true,"maintenanceMode":false}'::jsonb;

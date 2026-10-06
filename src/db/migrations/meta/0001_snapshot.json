@@ -1,0 +1,109 @@
+{
+  "id": "f5dbbda2-6454-41c7-89dd-ec7d2361d115",
+  "prevId": "0b9a0337-35c7-408d-8ccf-d28eaf2b92da",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "lms.settings": {
+      "name": "settings",
+      "schema": "lms",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "default": 1
+        },
+        "college_name": {
+          "name": "college_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Open College'"
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'UTC'"
+        },
+        "locale": {
+          "name": "locale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'en'"
+        },
+        "branding": {
+          "name": "branding",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"logoUrl\":null,\"primaryColor\":\"#4f46e5\",\"accentColor\":\"#06b6d4\",\"institutionMotto\":\"Excellence in Education\",\"faviconUrl\":null}'::jsonb"
+        },
+        "policies": {
+          "name": "policies",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"allowSelfRegistration\":false,\"maxStudentsPerCourse\":80,\"enforceMfa\":false,\"sessionTimeoutMinutes\":60}'::jsonb"
+        },
+        "flags": {
+          "name": "flags",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"aiAssistance\":false,\"emailNotifications\":true,\"maintenanceMode\":false}'::jsonb"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "version": {
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "settings_single_row_check": {
+          "name": "settings_single_row_check",
+          "value": "\"lms\".\"settings\".\"id\" = 1"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "lms": "lms"
+  },
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
