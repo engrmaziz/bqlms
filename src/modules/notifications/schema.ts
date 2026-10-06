@@ -56,7 +56,7 @@ export const notificationsTable = lmsSchema.table(
   "notifications",
   {
     id: id(),
-    userId: uuid("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => userTable.id, { onDelete: "cascade" }),
     category: notificationCategoryEnum("category").notNull(),
@@ -110,7 +110,7 @@ export const notificationDeliveriesTable = lmsSchema.table(
 export const notificationPreferencesTable = lmsSchema.table(
   "notification_preferences",
   {
-    userId: uuid("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => userTable.id, { onDelete: "cascade" }),
     category: notificationCategoryEnum("category").notNull(),
@@ -124,7 +124,7 @@ export const notificationPreferencesTable = lmsSchema.table(
 export const notificationUserSettingsTable = lmsSchema.table(
   "notification_user_settings",
   {
-    userId: uuid("user_id")
+    userId: text("user_id")
       .primaryKey()
       .references(() => userTable.id, { onDelete: "cascade" }),
     secondDigestHour: integer("second_digest_hour"),

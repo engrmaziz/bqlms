@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS "lms"."notification_deliveries" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "lms"."notification_preferences" (
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	"category" "lms"."notification_category" NOT NULL,
 	"email" boolean DEFAULT true NOT NULL,
 	"push" boolean DEFAULT true NOT NULL,
@@ -73,13 +73,13 @@ CREATE TABLE IF NOT EXISTS "lms"."notification_preferences" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "lms"."notification_user_settings" (
-	"user_id" uuid PRIMARY KEY NOT NULL,
+	"user_id" text PRIMARY KEY NOT NULL,
 	"second_digest_hour" integer
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "lms"."notifications" (
 	"id" uuid PRIMARY KEY NOT NULL,
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	"category" "lms"."notification_category" NOT NULL,
 	"template" text NOT NULL,
 	"data" jsonb NOT NULL,
