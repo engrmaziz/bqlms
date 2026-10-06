@@ -1,8 +1,14 @@
 export {
+  countActiveSuperAdmins,
+  deleteInvitationById,
   getInvitationByTokenHash,
   getPasswordResetLinkByTokenHash,
   getProfileByUserId,
   getUserByEmail,
+  getUserWithProfile,
+  listInvitations,
+  listUsersWithProfiles,
+  type UserWithProfile,
 } from "./queries";
 export {
   accountTable,
@@ -24,7 +30,6 @@ export {
   userTable,
   verificationTable,
 } from "./schema";
-
 export {
   type AcceptInvitationInput,
   acceptInvitation,

@@ -2,19 +2,16 @@ import { type NextRequest, NextResponse } from "next/server";
 import { uuidv7 } from "uuidv7";
 import { generateCsp } from "@/lib/csp";
 
-export function sanitizeCallbackUrl(rawUrl: string | null): string {
-  if (!rawUrl) return "/dashboard";
-  if (
-    rawUrl.startsWith("/") &&
-    !rawUrl.startsWith("//") &&
-    !rawUrl.includes("\\")
-  ) {
-    return rawUrl;
-  }
-  return "/dashboard";
-}
+export { sanitizeCallbackUrl } from "@/lib/url";
 
-const PROTECTED_PREFIXES = ["/dashboard", "/admin", "/courses", "/settings"];
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/admin",
+  "/faculty",
+  "/student",
+  "/courses",
+  "/settings",
+];
 
 export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);

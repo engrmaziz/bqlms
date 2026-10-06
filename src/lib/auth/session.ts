@@ -1,5 +1,6 @@
 import "server-only";
-import { headers } from "next/headers";
+import { headers } from "next/headers.js";
+import { notFound } from "next/navigation.js";
 import { cache } from "react";
 import { auth } from "@/lib/auth/auth";
 import { AppError } from "@/lib/errors";
@@ -112,4 +113,28 @@ export async function requireFreshSession(
   }
 
   return requireActor(customHeaders);
+}
+
+/**
+ * NOTE: Layout guards are UX only. Every database query and server action
+ * re-authorizes independently via can() / defineAction.
+ */
+export async function requireRole(
+  allowedRoles: Role[],
+  customHeaders?: Headers,
+): Promise<Actor> {
+  const actor = await getActor(customHeaders);
+  if (!actor) {
+    throw new AppError({
+      code: "UNAUTHENTICATED",
+      message: "Authentication required.",
+    });
+  }
+
+  const hasRole = actor.roles.some((r) => allowedRoles.includes(r));
+  if (!hasRole) {
+    notFound();
+  }
+
+  return actor;
 }

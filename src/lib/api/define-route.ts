@@ -93,10 +93,8 @@ export function defineRoute<
   TInputSchema extends z.ZodTypeAny | undefined,
   TOutput,
 >(definition: DefineRouteOptions<TInputSchema, TOutput>) {
-  return async (
-    req: NextRequest,
-    context?: RouteInvocationContext,
-  ): Promise<NextResponse> => {
+  return async (req: NextRequest, context?: unknown): Promise<NextResponse> => {
+    const routeCtx = context as RouteInvocationContext | undefined;
     const requestId =
       req.headers.get("x-request-id") ||
       getRequestContext()?.requestId ||
@@ -108,7 +106,7 @@ export function defineRoute<
 
     try {
       // 1. Authenticate (getActor)
-      const actor = context?.actor ?? (await getActor(req.headers));
+      const actor = routeCtx?.actor ?? (await getActor(req.headers));
       if (!definition.public && (!actor || actor.status !== "active")) {
         return NextResponse.json(
           {

@@ -27,6 +27,7 @@ module.exports = {
         pathNot: [
           "^src/modules/[^/]+/index\\.ts$",
           "^src/modules/[^/]+/schema\\.ts$",
+          "^src/modules/[^/]+/actions\\.ts$",
         ],
       },
     },

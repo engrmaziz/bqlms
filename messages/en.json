@@ -1,0 +1,87 @@
+{
+  "common": {
+    "appName": "Open College LMS",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "users": "Users",
+    "courses": "Courses",
+    "sections": "Sections",
+    "assignments": "Assignments",
+    "grades": "Grades",
+    "attendance": "Attendance",
+    "reports": "Reports",
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "submit": "Submit",
+    "copy": "Copy Link",
+    "copied": "Copied to clipboard!",
+    "skipToContent": "Skip to main content",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "actions": "Actions",
+    "status": "Status",
+    "active": "Active",
+    "invited": "Invited",
+    "suspended": "Suspended",
+    "super_admin": "Super Admin",
+    "admin": "Admin",
+    "registrar": "Registrar",
+    "faculty": "Faculty",
+    "student": "Student"
+  },
+  "nav": {
+    "adminPortal": "Admin Portal",
+    "facultyPortal": "Faculty Portal",
+    "studentPortal": "Student Portal",
+    "switchRole": "Switch Role"
+  },
+  "admin": {
+    "title": "College Administration",
+    "description": "System configuration, user management, and institutional records.",
+    "usersTitle": "User Management",
+    "usersDescription": "Manage student and staff profiles, invitations, and permissions.",
+    "settingsTitle": "College Settings",
+    "settingsDescription": "Configure institutional identity, timezone, branding, and policies."
+  },
+  "faculty": {
+    "title": "Faculty Portal",
+    "description": "Course instruction, grade submission, and student assessments."
+  },
+  "student": {
+    "title": "Student Portal",
+    "description": "Access your enrolled courses, submit assignments, and view grades."
+  },
+  "users": {
+    "inviteUser": "Invite User",
+    "inviteDescription": "Send an invitation to join the college platform.",
+    "emailLabel": "Email Address",
+    "rolesLabel": "Roles",
+    "sendInvite": "Generate Invitation",
+    "inviteUrl": "Invitation Link",
+    "changeRoles": "Change Roles",
+    "suspendUser": "Suspend Account",
+    "reactivateUser": "Reactivate Account",
+    "generateReset": "Generate Password Reset Link",
+    "resetUrl": "Password Reset Link",
+    "lastSuperAdminError": "Cannot demote or suspend the last active Super Administrator."
+  },
+  "settings": {
+    "collegeName": "Institution Name",
+    "timezone": "Timezone",
+    "primaryColor": "Primary Brand Color",
+    "contrastPass": "WCAG AA Contrast Compliant",
+    "contrastFail": "Fails WCAG AA Contrast",
+    "saveSuccess": "Settings saved successfully."
+  },
+  "errors": {
+    "unauthenticated": "Authentication required to access this resource.",
+    "forbidden": "You do not have permission to view this page.",
+    "notFound": "Page or resource not found.",
+    "internal": "An unexpected error occurred. Please contact system support.",
+    "requestId": "Request ID"
+  }
+}

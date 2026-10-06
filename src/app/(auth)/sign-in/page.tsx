@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { authClient, signIn } from "@/lib/auth/client";
-import { sanitizeCallbackUrl } from "@/proxy";
+import { sanitizeCallbackUrl } from "@/lib/url";
 
 function SignInForm() {
   const router = useRouter();

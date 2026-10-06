@@ -15,5 +15,5 @@ export {
   clearSettingsCache,
   getSettings,
   type UpdateSettingsInput,
-  updateSettings,
+  updateSettings as updateSettingsService,
 } from "./service";
