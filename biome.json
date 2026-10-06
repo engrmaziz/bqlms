@@ -13,7 +13,9 @@
       "!.next",
       "!dist",
       "!build",
-      "!src/db/migrations"
+      "!src/db/migrations",
+      "!test-results",
+      "!playwright-report"
     ]
   },
   "formatter": {

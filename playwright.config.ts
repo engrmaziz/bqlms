@@ -1,14 +1,19 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env" });
+
+const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3005";
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
-  ...(process.env.CI ? { workers: 1 } : {}),
-  reporter: "html",
+  reporter: "list",
   use: {
-    baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    baseURL: appUrl,
     trace: "on-first-retry",
   },
   projects: [
@@ -20,9 +25,9 @@ export default defineConfig({
   ...(!process.env.CI
     ? {
         webServer: {
-          command: "pnpm dev",
-          url: "http://localhost:3000",
-          reuseExistingServer: true,
+          command: "pnpm dev -p 3005",
+          url: appUrl,
+          reuseExistingServer: false,
           timeout: 120000,
         },
       }

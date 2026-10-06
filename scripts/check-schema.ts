@@ -17,7 +17,18 @@ async function checkSchema() {
   console.log("Checking database schema isolation and security...");
 
   // 1. Check if any application tables exist in 'public' schema
-  const knownAppTables = ["settings"];
+  const knownAppTables = [
+    "settings",
+    "user",
+    "session",
+    "account",
+    "verification",
+    "two_factor",
+    "rate_limit",
+    "profiles",
+    "invitations",
+    "password_reset_links",
+  ];
   const publicTables = await sql`
     SELECT table_name
     FROM information_schema.tables
