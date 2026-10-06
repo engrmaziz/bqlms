@@ -2,10 +2,13 @@
 
 import {
   BookOpen,
+  Calendar,
   GraduationCap,
+  Layers,
   LayoutDashboard,
   LogOut,
   Settings,
+  Upload,
   Users,
 } from "lucide-react";
 import Link from "next/link";
@@ -23,6 +26,9 @@ const ICON_MAP = {
   courses: BookOpen,
   grades: GraduationCap,
   assignments: BookOpen,
+  calendar: Calendar,
+  upload: Upload,
+  layers: Layers,
 };
 
 export function AppSidebar({

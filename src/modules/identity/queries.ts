@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { type Database, db } from "@/db/client";
 import type { Tx } from "@/db/tx";
 import {
@@ -94,12 +94,26 @@ export async function listUsersWithProfiles(
   params: {
     search?: string;
     status?: ProfileStatus;
+    role?: Role;
     limit?: number;
     offset?: number;
   } = {},
   executor: Database | Tx = db,
 ): Promise<UserWithProfile[]> {
-  const rows = await executor
+  const conditions = [];
+
+  if (params.status) {
+    conditions.push(eq(profilesTable.status, params.status));
+  }
+
+  if (params.search?.trim()) {
+    const pattern = `%${params.search.trim()}%`;
+    conditions.push(
+      sql`(${userTable.name} ILIKE ${pattern} OR ${userTable.email} ILIKE ${pattern} OR ${profilesTable.studentNumber} ILIKE ${pattern})`,
+    );
+  }
+
+  const query = executor
     .select({
       id: userTable.id,
       name: userTable.name,
@@ -112,26 +126,20 @@ export async function listUsersWithProfiles(
       createdAt: userTable.createdAt,
     })
     .from(userTable)
-    .innerJoin(profilesTable, eq(userTable.id, profilesTable.userId))
-    .limit(params.limit ?? 50)
-    .offset(params.offset ?? 0);
+    .innerJoin(profilesTable, eq(userTable.id, profilesTable.userId));
 
-  let filtered = rows;
-  if (params.search) {
-    const q = params.search.toLowerCase();
-    filtered = filtered.filter(
-      (u) =>
-        u.name.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q) ||
-        u.studentNumber?.toLowerCase().includes(q),
-    );
+  if (conditions.length > 0) {
+    query.where(and(...conditions));
   }
 
-  if (params.status) {
-    filtered = filtered.filter((u) => u.status === params.status);
+  const rows = await query.limit(params.limit ?? 50).offset(params.offset ?? 0);
+
+  const roleFilter = params.role;
+  if (roleFilter) {
+    return rows.filter((u) => u.roles.includes(roleFilter));
   }
 
-  return filtered;
+  return rows;
 }
 
 export async function listInvitations(

@@ -10,7 +10,10 @@ export interface NavItem {
     | "settings"
     | "courses"
     | "grades"
-    | "assignments";
+    | "assignments"
+    | "calendar"
+    | "upload"
+    | "layers";
   exact?: boolean;
 }
 
@@ -64,6 +67,26 @@ export function getNavigationForActor(
         title: "Users",
         href: "/admin/users",
         iconName: "users",
+      },
+      {
+        title: "Terms",
+        href: "/admin/terms",
+        iconName: "calendar",
+      },
+      {
+        title: "Courses",
+        href: "/admin/courses",
+        iconName: "courses",
+      },
+      {
+        title: "Sections",
+        href: "/admin/sections",
+        iconName: "layers",
+      },
+      {
+        title: "CSV Import",
+        href: "/admin/import",
+        iconName: "upload",
       },
     ];
 

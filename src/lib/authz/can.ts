@@ -1,10 +1,14 @@
 import type { Actor } from "@/lib/auth/session";
 import { type Permission, ROLE_PERMISSIONS } from "./permissions";
-import type { RelationshipLoaders, ResourceContext } from "./scope";
+import {
+  defaultRelationshipLoaders,
+  type RelationshipLoaders,
+  type ResourceContext,
+} from "./scope";
 
 /**
  * Checks whether an actor is authorized to perform an action on a resource.
- * Pure function: relies strictly on actor, permission, resource context, and provided loaders.
+ * Pure function: relies on actor, permission, resource context, and relationship loaders.
  */
 export async function can(
   actor: Actor | null | undefined,
@@ -15,6 +19,11 @@ export async function can(
   if (!actor || actor.status !== "active") {
     return false;
   }
+
+  const effectiveLoaders: RelationshipLoaders = {
+    ...defaultRelationshipLoaders,
+    ...loaders,
+  };
 
   // Iterate over all roles held by the actor
   for (const role of actor.roles) {
@@ -43,8 +52,8 @@ export async function can(
     // 3. Faculty role scope checks
     if (role === "faculty") {
       if (resource?.sectionId) {
-        if (loaders?.isInstructorOfSection) {
-          const isInstructor = await loaders.isInstructorOfSection(
+        if (effectiveLoaders.isInstructorOfSection) {
+          const isInstructor = await effectiveLoaders.isInstructorOfSection(
             actor.userId,
             resource.sectionId,
           );
@@ -67,8 +76,8 @@ export async function can(
     // 4. Student role scope checks
     if (role === "student") {
       if (resource?.sectionId) {
-        if (loaders?.isEnrolledInSection) {
-          const isEnrolled = await loaders.isEnrolledInSection(
+        if (effectiveLoaders.isEnrolledInSection) {
+          const isEnrolled = await effectiveLoaders.isEnrolledInSection(
             actor.userId,
             resource.sectionId,
           );
