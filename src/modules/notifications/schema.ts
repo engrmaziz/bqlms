@@ -62,7 +62,7 @@ export const notificationsTable = lmsSchema.table(
     category: notificationCategoryEnum("category").notNull(),
     template: text("template").notNull(),
     data: jsonb("data").$type<Record<string, unknown>>().notNull(),
-    dedupeKey: text("dedupe_key"),
+    dedupeKey: text("dedupe_key").unique(),
     readAt: timestamp("read_at", { withTimezone: true, mode: "date" }),
     createdAt: timestamp("created_at", { withTimezone: true, mode: "date" })
       .defaultNow()

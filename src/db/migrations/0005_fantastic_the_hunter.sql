@@ -85,7 +85,8 @@ CREATE TABLE IF NOT EXISTS "lms"."notifications" (
 	"data" jsonb NOT NULL,
 	"dedupe_key" text,
 	"read_at" timestamp with time zone,
-	"created_at" timestamp with time zone DEFAULT now() NOT NULL
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	CONSTRAINT "notifications_dedupe_key_unique" UNIQUE("dedupe_key")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "lms"."webhook_events" (
@@ -120,6 +121,13 @@ END $$;
 DO $$ BEGIN
   ALTER TABLE "lms"."notifications" ADD CONSTRAINT "notifications_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "lms"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+  ALTER TABLE "lms"."notifications" ADD CONSTRAINT "notifications_dedupe_key_unique" UNIQUE ("dedupe_key");
+EXCEPTION
+  WHEN duplicate_table THEN null;
   WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
