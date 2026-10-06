@@ -1,17 +1,15 @@
-# AGENTS.md
+---
+description: Architecture rules and quality invariants
+globs: *
+alwaysApply: true
+---
 
-<!-- BEGIN:nextjs-agent-rules -->
+# Architecture Rules
 
-# This is NOT the Next.js you know
+This project enforces strict architecture rules, zero-cost limits, and quality gates.
+All code contributions and agent implementations must strictly adhere to the invariants defined in [AGENTS.md](file:///d:/04_Assessments/badaha/AGENTS.md).
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
-
-## Core Invariants & Rules
-
+## Core Principles (from AGENTS.md)
 1. One Next.js app, modular monolith, single college. No tenant concept.
 2. Zero-cost, no-card rule: never add a service that needs a paid plan or a payment method on file. Every external service sits behind an interface in src/lib/providers/*, has a free default, a fake for tests, an on/off flag, and a hard usage cap that returns QUOTA_EXCEEDED.
 3. Request handlers are stateless serverless functions. Do no work after the response is sent. No WebSockets or SSE. No in-memory state shared across requests except short-lived caches.

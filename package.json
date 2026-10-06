@@ -2,26 +2,49 @@
   "name": "badaha",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "depcruise": "depcruise --config .dependency-cruiser.cjs src",
+    "test": "vitest run --config vitest.config.ts",
+    "test:int": "vitest run --config vitest.int.config.ts",
+    "test:e2e": "playwright test",
+    "db:generate": "node -e \"console.log('db:generate placeholder ready')\"",
+    "db:migrate": "node -e \"console.log('db:migrate placeholder ready')\"",
+    "db:seed": "node -e \"console.log('db:seed placeholder ready')\"",
+    "jobs:dev": "node -e \"console.log('jobs:dev placeholder ready')\"",
+    "verify": "pnpm typecheck && pnpm lint && pnpm depcruise && pnpm test && pnpm test:int"
   },
   "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.11",
+    "clsx": "^2.1.1",
     "next": "16.3.8",
+    "pino": "^10.4.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.2",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24.19.1",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dependency-cruiser": "^18.5.0",
+    "dotenv": "^18.0.5",
+    "pg": "^8.23.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.3"
   },
   "packageManager": "pnpm@12.9.1"
 }
