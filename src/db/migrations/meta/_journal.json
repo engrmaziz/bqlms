@@ -36,6 +36,13 @@
       "when": 1791301339267,
       "tag": "0004_smooth_leopardon",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1791314908958,
+      "tag": "0005_fantastic_the_hunter",
+      "breakpoints": true
     }
   ]
 }
