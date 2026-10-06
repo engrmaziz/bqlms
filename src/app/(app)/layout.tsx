@@ -11,6 +11,8 @@ import { getNavigationForActor, resolveActiveRole } from "@/lib/nav";
 import { TanStackQueryProvider } from "@/lib/query-client";
 import { getUnreadNotificationsCount } from "@/modules/notifications";
 
+export const dynamic = "force-dynamic";
+
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const actor = await getActor();
   if (!actor) {

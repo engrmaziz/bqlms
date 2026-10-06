@@ -5,14 +5,25 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { formatDate } from "@/lib/datetime";
-import {
-  getCategoryMetadata,
-  type Notification,
-} from "@/modules/notifications";
+import type { Notification } from "@/modules/notifications";
 import {
   markAllNotificationsRead,
   markNotificationRead,
 } from "@/modules/notifications/actions";
+
+const CATEGORY_LABELS: Record<string, string> = {
+  security: "Account & Security",
+  payment: "Billing & Financial",
+  exam: "Exams & Tests",
+  deadline: "Urgent Deadlines",
+  announcement: "Campus Announcements",
+  content: "Course Materials",
+  grade: "Grades & Evaluation",
+  forum: "Discussion Forums",
+  message: "Direct Messages",
+  absence: "Attendance & Absences",
+  reminder: "General Reminders",
+};
 
 interface NotificationsViewProps {
   notifications: Notification[];
@@ -111,7 +122,8 @@ export function NotificationsView({ notifications }: NotificationsViewProps) {
         <div className="space-y-3">
           {notifications.map((notification) => {
             const isUnread = !notification.readAt;
-            const meta = getCategoryMetadata(notification.category);
+            const categoryLabel =
+              CATEGORY_LABELS[notification.category] ?? notification.category;
 
             return (
               <div
@@ -126,7 +138,7 @@ export function NotificationsView({ notifications }: NotificationsViewProps) {
                   <div className="space-y-1.5 flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-md">
-                        {meta.label}
+                        {categoryLabel}
                       </span>
                       <span className="text-xs text-zinc-400">
                         {formatDate(notification.createdAt)}

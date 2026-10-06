@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getActor } from "@/lib/auth/session";
-import { getUserPreferences } from "@/modules/notifications";
+import { ALL_CATEGORIES, getUserPreferences } from "@/modules/notifications";
 import { NotificationPreferencesForm } from "./notification-preferences-form";
 
 export default async function NotificationPreferencesPage() {
@@ -11,5 +11,10 @@ export default async function NotificationPreferencesPage() {
 
   const preferences = await getUserPreferences(actor.userId);
 
-  return <NotificationPreferencesForm initialPreferences={preferences} />;
+  return (
+    <NotificationPreferencesForm
+      initialPreferences={preferences}
+      categories={ALL_CATEGORIES}
+    />
+  );
 }

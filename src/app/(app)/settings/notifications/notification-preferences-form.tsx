@@ -3,18 +3,20 @@
 import { Mail, MessageSquare, Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import {
-  ALL_CATEGORIES,
-  type NotificationPreference,
+import type {
+  CategoryMetadata,
+  NotificationPreference,
 } from "@/modules/notifications";
 import { updateNotificationPreferences } from "@/modules/notifications/actions";
 
 interface NotificationPreferencesFormProps {
   initialPreferences: NotificationPreference[];
+  categories: CategoryMetadata[];
 }
 
 export function NotificationPreferencesForm({
   initialPreferences,
+  categories,
 }: NotificationPreferencesFormProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -24,7 +26,7 @@ export function NotificationPreferencesForm({
   // Map initial preferences
   const [prefs, setPrefs] = useState(() => {
     const map = new Map<string, { email: boolean; push: boolean }>();
-    for (const cat of ALL_CATEGORIES) {
+    for (const cat of categories) {
       const existing = initialPreferences.find((p) => p.category === cat.key);
       map.set(cat.key, {
         email: existing ? existing.email : true,
@@ -101,7 +103,7 @@ export function NotificationPreferencesForm({
       )}
 
       <div className="space-y-4">
-        {ALL_CATEGORIES.map((category) => {
+        {categories.map((category) => {
           const pref = prefs.get(category.key) ?? { email: true, push: true };
 
           return (
