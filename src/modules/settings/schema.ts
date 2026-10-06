@@ -1,15 +1,10 @@
 import { sql } from "drizzle-orm";
-import {
-  check,
-  integer,
-  jsonb,
-  pgSchema,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { check, integer, jsonb, text, timestamp } from "drizzle-orm/pg-core";
 import { z } from "zod";
 
-export const lmsSchema = pgSchema("lms");
+import { lmsSchema } from "@/db/schema/_shared";
+
+export { lmsSchema };
 
 export const brandingSchema = z
   .object({

@@ -3,13 +3,10 @@ import {
   boolean,
   index,
   integer,
-  pgSchema,
   text,
   timestamp,
 } from "drizzle-orm/pg-core";
-import { id } from "@/db/schema/_shared";
-
-export const lmsSchema = pgSchema("lms");
+import { id, lmsSchema } from "@/db/schema/_shared";
 
 export const roleEnum = lmsSchema.enum("role", [
   "super_admin",

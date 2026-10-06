@@ -8,8 +8,13 @@ const resetConfirmSchema = z.object({
 });
 
 export const POST = defineRoute({
-  schema: resetConfirmSchema,
-  handler: async (input) => {
+  public: true,
+  input: resetConfirmSchema,
+  rateLimit: { bucket: "auth", limit: 10, windowSeconds: 60 },
+  handler: async (_tx, _actor, input) => {
+    if (!input) {
+      throw new Error("Missing reset confirmation parameters.");
+    }
     await resetPasswordWithToken({
       token: input.token,
       newPassword: input.password,

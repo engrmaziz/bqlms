@@ -9,8 +9,13 @@ const acceptSchema = z.object({
 });
 
 export const POST = defineRoute({
-  schema: acceptSchema,
-  handler: async (input) => {
+  public: true,
+  input: acceptSchema,
+  rateLimit: { bucket: "auth", limit: 10, windowSeconds: 60 },
+  handler: async (_tx, _actor, input) => {
+    if (!input) {
+      throw new Error("Missing invitation input parameters.");
+    }
     const { user, profile } = await acceptInvitation(input);
     return {
       success: true,

@@ -1,5 +1,7 @@
-import { integer, timestamp, uuid } from "drizzle-orm/pg-core";
+import { integer, pgSchema, timestamp, uuid } from "drizzle-orm/pg-core";
 import { uuidv7 } from "uuidv7";
+
+export const lmsSchema = pgSchema("lms");
 
 export const id = (name = "id") =>
   uuid(name)

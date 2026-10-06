@@ -1,4 +1,14 @@
 export {
+  type AuditLog,
+  auditLogsTable,
+  type InsertAuditLog,
+} from "@/modules/audit/schema";
+export {
+  type IdempotencyRecord,
+  type InsertIdempotencyRecord,
+  idempotencyKeysTable,
+} from "@/modules/idempotency/schema";
+export {
   accountTable,
   type Invitation,
   invitationsTable,
@@ -18,6 +28,11 @@ export {
   userTable,
   verificationTable,
 } from "@/modules/identity/schema";
+export {
+  type InsertRateLimitsRecord,
+  type RateLimitsRecord,
+  rateLimitsTable,
+} from "@/modules/rate-limit/schema";
 export {
   type BrandingConfig,
   brandingSchema,

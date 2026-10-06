@@ -21,7 +21,8 @@
     "db:check-schema": "tsx scripts/check-schema.ts",
     "db:size": "tsx scripts/db-size.ts",
     "jobs:dev": "node -e \"console.log('jobs:dev placeholder ready')\"",
-    "verify": "pnpm typecheck && pnpm lint && pnpm depcruise && pnpm test && pnpm test:int && pnpm db:check-schema"
+    "check:actions": "tsx scripts/check-actions.ts",
+    "verify": "pnpm typecheck && pnpm lint && pnpm depcruise && pnpm test && pnpm test:int && pnpm db:check-schema && pnpm check:actions"
   },
   "dependencies": {
     "@t3-oss/env-nextjs": "^0.13.11",
