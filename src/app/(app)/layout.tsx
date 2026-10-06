@@ -4,10 +4,12 @@ import { NextIntlClientProvider } from "next-intl";
 import type { ReactNode } from "react";
 import { AppSidebar } from "@/components/app/app-sidebar";
 import { BottomNav } from "@/components/app/bottom-nav";
+import { NotificationBell } from "@/components/app/notification-bell";
 import { getActor } from "@/lib/auth/session";
 import { getMessages } from "@/lib/i18n";
 import { getNavigationForActor, resolveActiveRole } from "@/lib/nav";
 import { TanStackQueryProvider } from "@/lib/query-client";
+import { getUnreadNotificationsCount } from "@/modules/notifications";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const actor = await getActor();
@@ -21,6 +23,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
 
   const navConfig = getNavigationForActor(actor, activeRole);
   const messages = getMessages();
+  const unreadCount = await getUnreadNotificationsCount(actor.userId);
 
   return (
     <TanStackQueryProvider>
@@ -34,12 +37,26 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             Skip to main content
           </a>
 
+          {/* Mobile Top Header (< md) */}
+          <header className="flex md:hidden items-center justify-between px-4 h-14 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur sticky top-0 z-20">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+                BC
+              </div>
+              <span className="font-bold text-sm text-white truncate">
+                {navConfig.title}
+              </span>
+            </div>
+            <NotificationBell unreadCount={unreadCount} />
+          </header>
+
           {/* Desktop Sidebar (md+) */}
           <AppSidebar
             actor={actor}
             activeRole={activeRole}
             items={navConfig.items}
             portalTitle={navConfig.title}
+            unreadCount={unreadCount}
           />
 
           {/* Main Area */}

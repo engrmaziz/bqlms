@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import type { Actor } from "@/lib/auth/session";
 import type { NavItem } from "@/lib/nav";
 import type { Role } from "@/modules/identity/schema";
+import { NotificationBell } from "./notification-bell";
 import { RoleSwitcher } from "./role-switcher";
 
 const ICON_MAP = {
@@ -29,11 +30,13 @@ export function AppSidebar({
   activeRole,
   items,
   portalTitle,
+  unreadCount = 0,
 }: {
   actor: Actor;
   activeRole: Role;
   items: NavItem[];
   portalTitle: string;
+  unreadCount?: number;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -55,18 +58,21 @@ export function AppSidebar({
     >
       <div className="flex flex-col flex-1 min-h-0">
         {/* Brand Header */}
-        <div className="flex items-center gap-3 px-6 h-16 border-b border-zinc-800 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-indigo-500/20">
-            BC
+        <div className="flex items-center justify-between px-6 h-16 border-b border-zinc-800 shrink-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-indigo-500/20">
+              BC
+            </div>
+            <div className="min-w-0">
+              <span className="block font-bold text-sm text-white truncate tracking-tight">
+                BQLMS
+              </span>
+              <span className="block text-xs text-zinc-400 truncate">
+                {portalTitle}
+              </span>
+            </div>
           </div>
-          <div className="min-w-0">
-            <span className="block font-bold text-sm text-white truncate tracking-tight">
-              BQLMS
-            </span>
-            <span className="block text-xs text-zinc-400 truncate">
-              {portalTitle}
-            </span>
-          </div>
+          <NotificationBell unreadCount={unreadCount} />
         </div>
 
         {/* Navigation Items */}

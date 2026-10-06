@@ -12,6 +12,7 @@ export default defineConfig({
     exclude: ["tests/unit/**", "tests/e2e/**", "node_modules/**", ".next/**"],
     testTimeout: 15000,
     globals: true,
+    fileParallelism: false,
   },
   resolve: {
     alias: {

@@ -29,6 +29,35 @@ export {
   verificationTable,
 } from "@/modules/identity/schema";
 export {
+  type InsertJob,
+  type Job,
+  type JobStatus,
+  jobStatusEnum,
+  jobsTable,
+} from "@/modules/jobs/schema";
+export {
+  type InsertNotification,
+  type InsertNotificationDelivery,
+  type InsertNotificationPreference,
+  type InsertNotificationUserSettings,
+  type Notification,
+  type NotificationCategory,
+  type NotificationChannel,
+  type NotificationDelivery,
+  type NotificationDeliveryKind,
+  type NotificationDeliveryStatus,
+  type NotificationPreference,
+  type NotificationUserSettings,
+  notificationCategoryEnum,
+  notificationChannelEnum,
+  notificationDeliveriesTable,
+  notificationDeliveryKindEnum,
+  notificationDeliveryStatusEnum,
+  notificationPreferencesTable,
+  notificationsTable,
+  notificationUserSettingsTable,
+} from "@/modules/notifications/schema";
+export {
   type InsertRateLimitsRecord,
   type RateLimitsRecord,
   rateLimitsTable,
@@ -45,4 +74,9 @@ export {
   type Settings,
   settingsTable,
 } from "@/modules/settings/schema";
+export {
+  type InsertWebhookEvent,
+  type WebhookEvent,
+  webhookEventsTable,
+} from "@/modules/webhooks/schema";
 export * from "./_shared";

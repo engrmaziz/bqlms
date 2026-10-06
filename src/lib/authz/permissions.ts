@@ -66,6 +66,10 @@ export const PERMISSIONS = [
 
   // Reports
   "report:read",
+
+  // Notifications
+  "notification:read",
+  "notification:update",
 ] as const;
 
 export type Permission = (typeof PERMISSIONS)[number];
@@ -108,6 +112,8 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "message:create",
     "message:read",
     "report:read",
+    "notification:read",
+    "notification:update",
   ],
   registrar: [
     "settings:read",
@@ -132,6 +138,8 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "upload:read",
     "message:read",
     "report:read",
+    "notification:read",
+    "notification:update",
   ],
   faculty: [
     "settings:read",
@@ -152,6 +160,8 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "upload:read",
     "message:create",
     "message:read",
+    "notification:read",
+    "notification:update",
   ],
   student: [
     "settings:read",
@@ -165,6 +175,8 @@ export const ROLE_PERMISSIONS: Record<Role, readonly Permission[]> = {
     "upload:create",
     "upload:read",
     "message:read",
+    "notification:read",
+    "notification:update",
   ],
 };
 
