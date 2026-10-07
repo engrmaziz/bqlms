@@ -4,6 +4,7 @@ import { z } from "zod";
 import { defineRoute } from "@/lib/api/define-route";
 import { AppError } from "@/lib/errors";
 import { getStorageProvider } from "@/lib/providers/storage";
+import { canAccessLessonFile } from "@/modules/content";
 import {
   canDownloadFile,
   filesTable,
@@ -43,6 +44,15 @@ export const GET = defineRoute({
       throw new AppError({
         code: "FORBIDDEN",
         message: "You do not have permission to download this file.",
+      });
+    }
+
+    // Authorize download via lesson drip policy
+    const isLessonFileAllowed = await canAccessLessonFile(file.id, actor, tx);
+    if (!isLessonFileAllowed) {
+      throw new AppError({
+        code: "FORBIDDEN",
+        message: "This file is part of a locked lesson.",
       });
     }
 

@@ -32,6 +32,30 @@ export {
   type InsertAuditLog,
 } from "@/modules/audit/schema";
 export {
+  type DripOverride,
+  type DripRule,
+  type DripTargetType,
+  dripOverridesTable,
+  dripTargetTypeEnum,
+  type InsertDripOverride,
+  type InsertLesson,
+  type InsertModule,
+  type InsertSyllabusVersion,
+  type Lesson,
+  type LessonStatus,
+  type LessonType,
+  lessonStatusEnum,
+  lessonsTable,
+  lessonTypeEnum,
+  type Module,
+  type ModuleStatus,
+  moduleStatusEnum,
+  modulesTable,
+  type SyllabusVersion,
+  syllabusVersionsTable,
+  type VideoMetadata,
+} from "@/modules/content/schema";
+export {
   type Enrollment,
   type EnrollmentSource,
   type EnrollmentStatus,
@@ -107,6 +131,16 @@ export {
   notificationsTable,
   notificationUserSettingsTable,
 } from "@/modules/notifications/schema";
+export {
+  type InsertLessonProgress,
+  type InsertSectionCompletion,
+  type LessonProgress,
+  lessonProgressTable,
+  type ProgressStatus,
+  progressStatusEnum,
+  type SectionCompletion,
+  sectionCompletionsTable,
+} from "@/modules/progress/schema";
 export {
   type InsertRateLimitsRecord,
   type RateLimitsRecord,

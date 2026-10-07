@@ -1,11 +1,4 @@
-import {
-  bigint,
-  index,
-  integer,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { bigint, index, integer, text, timestamp } from "drizzle-orm/pg-core";
 import { id, lmsSchema } from "@/db/schema/_shared";
 import { userTable } from "@/modules/identity/schema";
 

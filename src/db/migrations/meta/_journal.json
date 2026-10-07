@@ -57,6 +57,13 @@
       "when": 1791374726073,
       "tag": "0007_open_sugar_man",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1791379337894,
+      "tag": "0008_moaning_argent",
+      "breakpoints": true
     }
   ]
 }

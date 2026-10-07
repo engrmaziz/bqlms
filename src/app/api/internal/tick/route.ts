@@ -7,6 +7,8 @@ import { drainJobs, scheduleRecurringJobs } from "@/modules/jobs";
 import "@/modules/files";
 import "@/modules/notifications";
 import "@/modules/webhooks";
+import "@/modules/content";
+import "@/modules/progress";
 
 export const maxDuration = 60;
 

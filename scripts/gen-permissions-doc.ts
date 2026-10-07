@@ -30,7 +30,8 @@ function getScopeDescription(role: Role, permission: Permission): string {
       permission.startsWith("assignment:") ||
       permission.startsWith("attendance:") ||
       permission === "grade:submit" ||
-      permission === "section:read"
+      permission === "section:read" ||
+      permission === "section:update"
     ) {
       return "instructor-of-section";
     }

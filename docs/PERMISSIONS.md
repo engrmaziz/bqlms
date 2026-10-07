@@ -36,7 +36,7 @@ Authorization in the LMS requires passing two distinct checks on every protected
 | `course:delete` | college-wide | college-wide | - | - | - |
 | `section:create` | college-wide | college-wide | college-wide | - | - |
 | `section:read` | college-wide | college-wide | college-wide | instructor-of-section | enrolled-in-section (self) |
-| `section:update` | college-wide | college-wide | college-wide | - | - |
+| `section:update` | college-wide | college-wide | college-wide | instructor-of-section | - |
 | `section:delete` | college-wide | college-wide | - | - | - |
 | `enrollment:create` | college-wide | college-wide | college-wide | - | - |
 | `enrollment:read` | college-wide | college-wide | college-wide | college-wide | college-wide |
@@ -59,3 +59,5 @@ Authorization in the LMS requires passing two distinct checks on every protected
 | `message:create` | college-wide | college-wide | - | college-wide | - |
 | `message:read` | college-wide | college-wide | college-wide | college-wide | college-wide |
 | `report:read` | college-wide | college-wide | college-wide | - | - |
+| `notification:read` | college-wide | college-wide | college-wide | college-wide | college-wide |
+| `notification:update` | college-wide | college-wide | college-wide | college-wide | college-wide |
