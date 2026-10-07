@@ -41,6 +41,19 @@ export {
   type InsertEnrollment,
 } from "@/modules/enrollment/schema";
 export {
+  type FileDelivery,
+  type FilePurpose,
+  type FileRecord,
+  type FileStatus,
+  fileDeliveryEnum,
+  filePurposeEnum,
+  fileStatusEnum,
+  filesTable,
+  type InsertFileRecord,
+  type StorageReadRecord,
+  storageReadsTable,
+} from "@/modules/files/schema";
+export {
   type IdempotencyRecord,
   type InsertIdempotencyRecord,
   idempotencyKeysTable,

@@ -59,3 +59,13 @@ This document records the exact runtime environment and resolved dependency vers
 - **Target Deployment**: Vercel (default serverless) or Standalone Docker (`BUILD_STANDALONE=1`).
 - **TypeScript Settings**: `strict: true`, `noUncheckedIndexedAccess: true`, `exactOptionalPropertyTypes: true`.
 - **Module Boundaries**: All cross-module imports must pass through `src/modules/<domain>/index.ts`.
+
+## Storage Architecture & Trade-Offs
+- **Primary Storage Provider**: Backblaze B2 via S3-compatible API (MinIO for local development) accessed via `@aws-sdk/client-s3` and `@aws-sdk/s3-request-presigner`.
+- **Zero Antivirus Residual Risk**: At this zero-cost budget constraint ($0/month, no payment card on file), dedicated real-time cloud antivirus appliances (e.g. ClamAV daemon clusters or commercial scanning APIs) cannot be provisioned. This residual risk is mitigated application-side by:
+  1. Strict per-purpose MIME and file-extension allowlists.
+  2. Absolute rejection of executables (`.exe`, `.dll`, `.bin`, `.bat`, `.cmd`, `.sh`, `.ps1`), scripts (`.js`, `.ts`, `.php`, `.py`), web markup (`.html`, `.svg`, `.xml`), and macro-enabled Office files (`.docm`, `.xlsm`, `.pptm`).
+  3. Asynchronous post-upload magic byte sniffing with `file-type` on initial bytes; mismatched or disallowed types trigger immediate object deletion from storage.
+  4. Sandboxed delivery: all private files download with `Content-Disposition: attachment` (except inline PDFs).
+- **Public CDN Capability URLs**: Lesson images and avatars utilize 128-bit random `public_key` tokens and are served via `/api/v1/media/[fileId]/[key]` with `Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable`. This allows platform CDNs to cache repeat requests to stay within B2 daily read limits. Trade-off: anyone in possession of the 128-bit URL can view the image (identical exposure to an unlisted YouTube video). CDN delivery is strictly forbidden for student submissions, student work, and payment proofs.
+- **Video Hosting**: Externalized entirely to unlisted YouTube embeds (`youtube-nocookie.com`) with playback heartbeat reporting. Zero video files are stored in object storage.

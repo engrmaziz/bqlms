@@ -50,6 +50,13 @@
       "when": 1791320989732,
       "tag": "0006_dapper_golden_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1791374726073,
+      "tag": "0007_open_sugar_man",
+      "breakpoints": true
     }
   ]
 }

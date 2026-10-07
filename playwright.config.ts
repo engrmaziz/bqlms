@@ -27,7 +27,7 @@ export default defineConfig({
         webServer: {
           command: "pnpm dev -p 3005",
           url: appUrl,
-          reuseExistingServer: true,
+          reuseExistingServer: false,
           timeout: 120000,
         },
       }

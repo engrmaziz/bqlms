@@ -82,4 +82,14 @@ export async function scheduleRecurringJobs(tx: Tx): Promise<void> {
       dedupeKey: `notifications:process-deferred:${dateStr}`,
     },
   );
+
+  // 4. Daily Files GC Job (cleans abandoned pending uploads and aged soft-deletes)
+  await enqueue(
+    tx,
+    "files:gc",
+    {},
+    {
+      dedupeKey: `files:gc:${dateStr}`,
+    },
+  );
 }

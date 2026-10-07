@@ -78,6 +78,7 @@ export interface DefineRouteOptions<
       ? z.infer<TInputSchema>
       : undefined,
     req: NextRequest,
+    context?: RouteInvocationContext,
   ) => Promise<TOutput>;
 }
 
@@ -93,7 +94,7 @@ export function defineRoute<
   TInputSchema extends z.ZodTypeAny | undefined,
   TOutput,
 >(definition: DefineRouteOptions<TInputSchema, TOutput>) {
-  return async (req: NextRequest, context?: unknown): Promise<NextResponse> => {
+  return async (req: NextRequest, context?: unknown): Promise<Response> => {
     const routeCtx = context as RouteInvocationContext | undefined;
     const requestId =
       req.headers.get("x-request-id") ||
@@ -118,14 +119,29 @@ export function defineRoute<
       }
 
       // 2. Extract Raw Input
+      let pathParams: Record<string, unknown> = {};
+      if (routeCtx?.params) {
+        pathParams = (
+          routeCtx.params instanceof Promise
+            ? await routeCtx.params
+            : routeCtx.params
+        ) as Record<string, unknown>;
+      }
+
       let rawInput: unknown;
       if (req.method === "GET" || req.method === "HEAD") {
-        rawInput = Object.fromEntries(req.nextUrl.searchParams.entries());
+        rawInput = {
+          ...pathParams,
+          ...Object.fromEntries(req.nextUrl.searchParams.entries()),
+        };
       } else {
         const text = await req.text();
         if (text && text.trim().length > 0) {
           try {
-            rawInput = JSON.parse(text);
+            rawInput = {
+              ...pathParams,
+              ...JSON.parse(text),
+            };
           } catch {
             return NextResponse.json(
               {
@@ -136,7 +152,7 @@ export function defineRoute<
             );
           }
         } else {
-          rawInput = {};
+          rawInput = { ...pathParams };
         }
       }
 
@@ -262,7 +278,13 @@ export function defineRoute<
           }
         }
 
-        const output = await definition.handler(tx, actor, parsedInput, req);
+        const output = await definition.handler(
+          tx,
+          actor,
+          parsedInput,
+          req,
+          routeCtx,
+        );
 
         // Audit in the same transaction
         if (definition.audit && actor) {
@@ -322,6 +344,10 @@ export function defineRoute<
             },
           },
         );
+      }
+
+      if (executionResult instanceof Response) {
+        return executionResult;
       }
 
       return NextResponse.json(executionResult, { status: statusCode });

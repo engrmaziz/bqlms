@@ -4,6 +4,9 @@ import { withTx } from "@/db/tx";
 import { env } from "@/lib/env";
 import { logger } from "@/lib/logger";
 import { drainJobs, scheduleRecurringJobs } from "@/modules/jobs";
+import "@/modules/files";
+import "@/modules/notifications";
+import "@/modules/webhooks";
 
 export const maxDuration = 60;
 

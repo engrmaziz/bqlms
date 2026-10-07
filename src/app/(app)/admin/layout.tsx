@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { requireRole } from "@/lib/auth/session";
+import { requireRole } from "@/lib/auth/require-role";
 
 /**
  * NOTE: Layout guards are UX only. Every database query and server action

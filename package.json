@@ -25,6 +25,8 @@
     "verify": "pnpm typecheck && pnpm lint && pnpm depcruise && pnpm test && pnpm test:int && pnpm db:check-schema && pnpm check:actions"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1146.0",
+    "@aws-sdk/s3-request-presigner": "^3.1146.0",
     "@hookform/resolvers": "^5.9.1",
     "@react-email/components": "^1.0.12",
     "@react-email/render": "^2.1.0",
@@ -35,6 +37,7 @@
     "clsx": "^2.1.1",
     "csv-parse": "^7.0.3",
     "drizzle-orm": "^0.45.3",
+    "file-type": "^22.1.1",
     "libphonenumber-js": "^1.13.14",
     "lucide-react": "^1.52.0",
     "next": "16.3.8",

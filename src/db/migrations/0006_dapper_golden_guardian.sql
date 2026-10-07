@@ -167,12 +167,6 @@ CREATE INDEX IF NOT EXISTS "sections_course_id_idx" ON "lms"."sections" USING bt
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "sections_term_id_idx" ON "lms"."sections" USING btree ("term_id");
 --> statement-breakpoint
-DO $$ BEGIN
-  ALTER TABLE "lms"."notifications" ADD CONSTRAINT "notifications_dedupe_key_unique" UNIQUE("dedupe_key");
-EXCEPTION
-  WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "user_name_trgm_idx" ON "lms"."user" USING gin ("name" gin_trgm_ops);
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "user_email_trgm_idx" ON "lms"."user" USING gin ("email" gin_trgm_ops);

@@ -23,7 +23,7 @@ export function generateCsp(): CspResult {
 
   const cspHeader = [
     "default-src 'self'",
-    `script-src ${scriptDirectives}`,
+    `script-src ${scriptDirectives} https://www.youtube.com https://s.ytimg.com`,
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' blob: data: https:",
     "font-src 'self' data:",
@@ -32,7 +32,7 @@ export function generateCsp(): CspResult {
     "form-action 'self'",
     "frame-ancestors 'none'",
     `connect-src 'self'${connectSrcAllowlist}${isDev ? " ws: http:" : ""}`,
-    `frame-src 'self'${frameSrcAllowlist}`,
+    `frame-src 'self' https://www.youtube-nocookie.com https://www.youtube.com${frameSrcAllowlist}`,
     "upgrade-insecure-requests",
   ].join("; ");
 
